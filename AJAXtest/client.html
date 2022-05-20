@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery 发送AJAX请求</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">jQuery发送AJAX请求</h2>
+        <button class="btn btn-primary">GET</button>
+        <button class="btn btn-danger">POST</button>
+        <button class="btn btn-info">通用型方法ajax</button>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </div>
+    <script>
+        $('button').eq(0).click(function () {
+            /*第一个参数是url，第二个参数是对象，第三个参数是回调函数,第四个参数可以写json,表明返回的类型自动转换为json*/
+            $.get('http://localhost:8000/jquery-server',{a:100,b:200},function (data) {
+                console.log(data);
+            },'json')
+            console.log('test')
+        })
+        $('button').eq(1).click(function () {
+            /*第一个参数是url，第二个参数是对象，第三个参数是回调函数*/
+            $.post('http://localhost:8000/jquery-server',{a:100,b:200},function (data) {
+                console.log(data);
+            })
+            console.log('test')
+        })
+        $('button').eq(2).click(function () {
+          $.ajax({
+              //url
+              url:'http://localhost:8000/delay',
+              //参数
+              data:{a:100,b:200},
+              //请求类型
+              type:'GET',
+              //响应体结果
+              dataType:'json',
+              //成功的回调
+              success:function (data) {
+                  console.log(data);
+              },
+              //超时时间
+              timeout:2000,
+              //失败的回调
+              error:function () {
+                  console.log('出错了!!')
+              },
+              //头信息
+              headers:{
+                  c:300,
+                  d:400
+              }
+
+          })
+
+        })
+
+    </script>
+
+</body>
+</html>
